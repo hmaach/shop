@@ -1,0 +1,44 @@
+<% content_for :header do %>
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Browse new products
+      </h1>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<div class="product-index-grid pt4">
+  <% @products.each do |product| %>
+
+    <div class="product border-light">
+      <div class="product-thumb">
+      <%= link_to image_tag(product.image_url(:thumb)), product %>
+      <% if product.condition? %>
+        <div class="condition">
+          <span class="tag is-dark"><%= product.condition %></span>
+        </div>
+      <% end %>
+      </div>
+
+
+    <div class="pa3">
+
+      <h3 class="fw7 f4 title"><%= link_to product.title, product %></h3>
+
+      <p class="has-text-gray fg pt1">Sold by: <%=  %></p>
+
+      <p class="f3 fw6 has-text-right pt2 price"><%= number_to_currency(product.price) %></p>
+
+ <%# This is where you will have to add the code so that only the user will be able to edit or delete
+ at the moment every one can do that, find a way to fix this %>
+      
+       <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
+       <%= link_to 'Delete', product, data: { confirm: "Are you sure ?" }, :method => :delete, class: "button is-small" %>
+
+    </div>
+  </div>
+  <% end %>
+</div>
